@@ -1,17 +1,25 @@
 # EchoSave: ElevenLabs + Jetpack Compose
 
-A simple, educational Android application designed to explore the ElevenLabs API and local data persistence. This project demonstrates how to convert text to high-quality AI speech and manage a library of saved audio files.
+EchoSave is a Jetpack Compose Android app that lets users generate lifelike audio from text, upload audio to convert to text, and automatically save and manage audio clips in the cloud.
 
-## 🚀 Features
-- **Text-to-Speech (TTS):** Connects to ElevenLabs API to generate lifelike audio.
-- **Model Selection:** Supports high-quality (Multilingual v2) and low-latency (Flash 2.5) models.
-- **Voice Selection:** Toggle between curated AI voices.
-- **Local Persistence:** Uses **Room Database** to store file paths and metadata.
-- **Audio Library:** A secondary screen to list, play back, and manage saved clips.
+🚀 Features
 
-## 🛠️ Tech Stack
-- **UI:** Jetpack Compose
-- **Language:** Kotlin
-- **Networking:** Retrofit 
-- **Database:** Room Persistence Library
-- **AI Audio:** ElevenLabs API
+* Text-to-Speech (TTS): Connects to ElevenLabs API to generate lifelike audio.
+* Model Selection: Supports high-quality (Multilingual v2) and low-latency (Flash 2.5) models.
+* Voice Selection: Toggle between curated AI voices.
+* Cloud Persistence: Uses Firebase Firestore to automatically save generated audio metadata (text, voice, audio URL, timestamp).
+* Audio Library: A secondary screen to list, play back, and manage saved clips directly from Firestore.
+* Auto-Save & Toast: Every generated or uploaded audio is saved automatically with a “Saved ✓” toast notification.
+* Dependency Injection: Uses Hilt for clean injection of repositories, Retrofit API service, and Firebase instances.
+* Navigation: Uses Voyager for Jetpack Compose screens and bottom tab navigation.
+
+🛠️ Tech Stack
+
+* UI: Jetpack Compose
+* Language: Kotlin
+* Networking: Retrofit
+* Cloud Storage: Firebase Storage for audio files
+* Database: Firebase Firestore for metadata
+* AI Audio: ElevenLabs API
+* DI: Hilt for dependency injection (ViewModels, Repositories, Firestore, Storage, Retrofit)
+* Navigation: Voyager for Compose navigation and bottom tabs

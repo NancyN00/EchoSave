@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -57,4 +59,49 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    // -------------------------
+    // Coroutines
+    // -------------------------
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // -------------------------
+    // Hilt / Dependency Injection
+    // -------------------------
+    implementation(libs.dagger.hilt)
+    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.hiltNavigationCompose)
+
+    // -------------------------
+    // Networking / API
+    // -------------------------
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+
+    // -------------------------
+    // Firebase
+    // -------------------------
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.storage.ktx)
+
+    // -------------------------
+    // Navigation
+    // -------------------------
+    implementation(libs.voyager)
+
+    // -------------------------
+    // Multimedia / Audio & Images
+    // -------------------------
+    implementation(libs.exoplayer)
+    implementation(libs.coil.compose)
+
+    // -------------------------
+    // Logging
+    // -------------------------
+    implementation(libs.timber)
 }

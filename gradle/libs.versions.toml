@@ -1,21 +1,68 @@
 [versions]
+# Android & Kotlin
 agp = "8.13.2"
 kotlin = "2.0.21"
 coreKtx = "1.17.0"
+
+# Testing
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
+
+# Lifecycle & Compose
 lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.12.2"
 composeBom = "2024.09.00"
 
+# Coroutines
+coroutines = "1.6.4"
+
+# Dependency Injection
+hilt = "2.51.1"
+kotlin-ksp = "2.0.21-1.0.28"
+hiltNavigationCompose = "1.0.0"
+
+# Firebase
+firebase-bom = "34.6.0"
+
+# Navigation
+voyager = "1.0.0"
+
+# Networking
+retrofit = "2.9.0"
+moshi = "1.16.0"
+okhttp = "4.11.0"
+
+# Multimedia
+exoplayer = "2.21.2"
+coil = "2.4.0"
+
+# Logging
+timber = "5.0.1"
+
 [libraries]
+
+# -------------------------
+# Core Android
+# -------------------------
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+
+# -------------------------
+# Testing
+# -------------------------
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+# -------------------------
+# Lifecycle & Activity
+# -------------------------
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+
+# -------------------------
+# Jetpack Compose
+# -------------------------
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
@@ -25,8 +72,54 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+# -------------------------
+# Coroutines
+# -------------------------
+kotlinx_coroutines_core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx_coroutines_android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+
+# -------------------------
+# Dependency Injection (Hilt)
+# -------------------------
+dagger-hilt = { group= "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
+dagger-hilt-compiler = { group= "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
+hiltNavigationCompose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
+# -------------------------
+# Navigation
+# -------------------------
+voyager = { group = "cafe.adriel.voyager", name = "navigator", version.ref = "voyager" }
+
+# -------------------------
+# Multimedia
+# -------------------------
+exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", version.ref = "exoplayer" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+
+# -------------------------
+# Networking
+# -------------------------
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
+moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+
+# -------------------------
+# Logging
+# -------------------------
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+
+# -------------------------
+# Firebase
+# -------------------------
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
+firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }

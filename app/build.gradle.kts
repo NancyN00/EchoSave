@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -20,6 +22,20 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+    //generate buildConfig at compile time
+        val elevenLabsKey = gradleLocalProperties(rootDir, providers)
+            .getProperty("eleven_labs_api_key")
+
+        if (elevenLabsKey.isNullOrEmpty()) {
+            throw GradleException("ERROR: 'eleven_labs_api_key' is missing in local.properties")
+        }
+
+        buildConfigField(
+            "String",
+            "ELEVEN_LABS_API_KEY",
+            "\"$elevenLabsKey\""
+        )
     }
 
     buildTypes {
@@ -40,6 +56,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -92,13 +109,17 @@ dependencies {
     // -------------------------
     // Navigation
     // -------------------------
-    implementation(libs.voyager)
+    implementation(libs.voyager.navigator)
+    implementation(libs.voyager.tab.navigator)
+    implementation(libs.voyager.transitions)
 
     // -------------------------
     // Multimedia / Audio & Images
     // -------------------------
     implementation(libs.exoplayer)
     implementation(libs.coil.compose)
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.ui)
 
     // -------------------------
     // Logging

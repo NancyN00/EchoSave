@@ -36,6 +36,7 @@ okhttp = "4.11.0"
 # Multimedia
 exoplayer = "2.21.2"
 coil = "2.4.0"
+media3 = "1.2.1"
 
 # Logging
 timber = "5.0.1"
@@ -88,13 +89,20 @@ hiltNavigationCompose = { group = "androidx.hilt", name = "hilt-navigation-compo
 # -------------------------
 # Navigation
 # -------------------------
-voyager = { group = "cafe.adriel.voyager", name = "navigator", version.ref = "voyager" }
+# Core Navigator
+voyager-navigator = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager" }
+# Bottom Tabs
+voyager-tab-navigator = { group = "cafe.adriel.voyager", name = "voyager-tab-navigator", version.ref = "voyager" }
+# Animations
+voyager-transitions = { group = "cafe.adriel.voyager", name = "voyager-transitions", version.ref = "voyager" }
 
 # -------------------------
 # Multimedia
 # -------------------------
 exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", version.ref = "exoplayer" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3" }
+media3-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "media3" }
 
 # -------------------------
 # Networking

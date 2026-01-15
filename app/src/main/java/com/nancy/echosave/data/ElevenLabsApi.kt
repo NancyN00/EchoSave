@@ -1,6 +1,6 @@
 package com.nancy.echosave.data
 
-import com.nancy.echosave.util.ElevenLabsConfig
+import com.nancy.echosave.ElevenLabsConfig
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body

@@ -1,11 +1,15 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.google.secrets)
 }
 
 android {
@@ -23,19 +27,17 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-    //generate buildConfig at compile time
-        val elevenLabsKey = gradleLocalProperties(rootDir, providers)
-            .getProperty("eleven_labs_api_key")
-
-        if (elevenLabsKey.isNullOrEmpty()) {
-            throw GradleException("ERROR: 'eleven_labs_api_key' is missing in local.properties")
+        // load the file manually
+        val localProperties = Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localProperties.load(FileInputStream(localPropertiesFile))
         }
 
-        buildConfigField(
-            "String",
-            "ELEVEN_LABS_API_KEY",
-            "\"$elevenLabsKey\""
-        )
+        val elevenLabsKey = localProperties.getProperty("eleven_labs_api_key") ?: ""
+
+        buildConfigField("String", "ELEVEN_LABS_API_KEY", "\"$elevenLabsKey\"")
+
     }
 
     buildTypes {
@@ -103,8 +105,8 @@ dependencies {
     // Firebase
     // -------------------------
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.firestore.ktx)
-    implementation(libs.firebase.storage.ktx)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
 
     // -------------------------
     // Navigation
@@ -116,10 +118,12 @@ dependencies {
     // -------------------------
     // Multimedia / Audio & Images
     // -------------------------
-    implementation(libs.exoplayer)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+
+        //Coil
     implementation(libs.coil.compose)
-    implementation(libs.media3.exoplayer)
-    implementation(libs.media3.ui)
+    implementation(libs.coil.network)
 
     // -------------------------
     // Logging

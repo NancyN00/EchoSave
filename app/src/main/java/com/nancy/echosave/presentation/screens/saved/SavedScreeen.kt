@@ -1,4 +1,4 @@
-package com.nancy.echosave.presentation.screens
+package com.nancy.echosave.presentation.screens.saved
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

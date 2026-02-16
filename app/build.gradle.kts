@@ -1,5 +1,4 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 import java.util.Properties
 import java.io.FileInputStream
 
@@ -12,11 +11,16 @@ plugins {
     alias(libs.plugins.google.secrets)
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        freeCompilerArgs.add("-Xjvm-default=all")
+    }
+}
+
 android {
     namespace = "com.nancy.echosave"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.nancy.echosave"
@@ -27,17 +31,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // load the file manually
+        // Load local.properties
         val localProperties = Properties()
         val localPropertiesFile = rootProject.file("local.properties")
         if (localPropertiesFile.exists()) {
             localProperties.load(FileInputStream(localPropertiesFile))
         }
-
         val elevenLabsKey = localProperties.getProperty("eleven_labs_api_key") ?: ""
-
         buildConfigField("String", "ELEVEN_LABS_API_KEY", "\"$elevenLabsKey\"")
-
     }
 
     buildTypes {
@@ -49,13 +50,12 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
     buildFeatures {
         compose = true
         buildConfig = true
@@ -63,14 +63,19 @@ android {
 }
 
 dependencies {
+    // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+
+    // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,54 +84,38 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    // -------------------------
     // Coroutines
-    // -------------------------
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
-    // -------------------------
-    // Hilt / Dependency Injection
-    // -------------------------
+    // Hilt / DI
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
     implementation(libs.hiltNavigationCompose)
 
-    // -------------------------
     // Networking / API
-    // -------------------------
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
     implementation(libs.moshi.kotlin)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
 
-    // -------------------------
     // Firebase
-    // -------------------------
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
 
-    // -------------------------
-    // Navigation
-    // -------------------------
+    // Voyager navigation
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.tab.navigator)
     implementation(libs.voyager.transitions)
 
-    // -------------------------
-    // Multimedia / Audio & Images
-    // -------------------------
+    // Multimedia / Images
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
-
-        //Coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network)
 
-    // -------------------------
     // Logging
-    // -------------------------
     implementation(libs.timber)
 }

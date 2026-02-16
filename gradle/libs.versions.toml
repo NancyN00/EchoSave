@@ -1,7 +1,7 @@
 [versions]
 # Android & Kotlin
 agp = "8.13.2"
-kotlin = "2.0.21"
+kotlin = "2.1.0"
 coreKtx = "1.17.0"
 
 # Testing
@@ -18,8 +18,8 @@ composeBom = "2024.09.00"
 coroutines = "1.6.4"
 
 # Dependency Injection
-hilt = "2.51.1"
-kotlin-ksp = "2.0.21-1.0.28"
+hilt = "2.52"
+kotlin-ksp = "2.1.0-1.0.29"
 hiltNavigationCompose = "1.0.0"
 
 # Firebase

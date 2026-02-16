@@ -1,9 +1,11 @@
 package com.nancy.echosave.navigation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.RecordVoiceOver
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -15,7 +17,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.Navigator
+import cafe.adriel.voyager.navigator.CurrentScreen
+import cafe.adriel.voyager.navigator.Navigator
+
 
 @Composable
 fun MainScreen() {
@@ -32,11 +36,12 @@ fun MainScreen() {
                         icon = {
                             when (tab) {
                                 TabItem.Audio -> Icon(
-                                    Icons.Default.RecordVoiceOver,
+                                    imageVector = Icons.Default.Home,
                                     contentDescription = "Audio"
                                 )
+
                                 TabItem.Saved -> Icon(
-                                    Icons.Default.List,
+                                    imageVector = Icons.Default.List,
                                     contentDescription = "Saved"
                                 )
                             }
@@ -46,9 +51,15 @@ fun MainScreen() {
             }
         }
     ) { paddingValues ->
-        Navigator(
-            screen = selectedTab.screen,
-            modifier = Modifier.padding(paddingValues)
-        )
+
+        Navigator(selectedTab.screen) {
+            Box(
+                modifier = Modifier.padding(paddingValues)
+            ) {
+                CurrentScreen()
+            }
+        }
+
     }
 }
+

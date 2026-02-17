@@ -4,12 +4,13 @@ import android.content.Context
 import com.nancy.echosave.data.ElevenLabsApi
 import com.nancy.echosave.data.TextToSpeechRequest
 import com.nancy.echosave.domain.AudioRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import javax.inject.Inject
 
 class AudioRepositoryImpl @Inject constructor(
     private val api: ElevenLabsApi,
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) : AudioRepository {
 
     override suspend fun generateAudio(

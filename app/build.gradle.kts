@@ -99,6 +99,8 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.gson)
 
     // Firebase
     implementation(platform(libs.firebase.bom))
@@ -118,4 +120,5 @@ dependencies {
 
     // Logging
     implementation(libs.timber)
+
 }

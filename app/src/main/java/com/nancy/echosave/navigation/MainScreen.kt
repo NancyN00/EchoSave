@@ -1,53 +1,59 @@
 package com.nancy.echosave.navigation
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
 import com.nancy.echosave.presentation.screens.audio.AudioScreen
+import com.nancy.echosave.presentation.screens.saved.SavedScreen
 
-
+sealed class MainTab(
+    val title: String,
+    val icon: ImageVector,
+    val createScreen: () -> Screen
+) {
+    object Audio : MainTab("Audio", Icons.Default.Home, { AudioScreen() })
+    object Saved : MainTab("Saved", Icons.Default.List, { SavedScreen() })
+}
 @Composable
 fun MainScreen() {
-    Navigator(AudioScreen) { navigator ->
+    // Start with a fresh instance
+    Navigator(AudioScreen()) { navigator ->
         Scaffold(
             bottomBar = {
                 NavigationBar {
-                    TabItem.entries.forEach { tab ->
+                    val tabs = listOf(MainTab.Audio, MainTab.Saved)
+
+                    tabs.forEach { tab ->
+                        val isSelected = navigator.lastItem::class == tab.createScreen()::class
+
                         NavigationBarItem(
-                            selected = navigator.lastItem == tab.screen,
+                            selected = isSelected,
                             onClick = {
-                                if (navigator.lastItem != tab.screen) {
-                                    navigator.replaceAll(tab.screen)
+                                if (!isSelected) {
+                                    navigator.replaceAll(tab.createScreen())
                                 }
                             },
                             label = { Text(tab.title) },
                             icon = {
                                 Icon(
-                                    imageVector = if (tab == TabItem.Audio) Icons.Default.Home else Icons.Default.List,
-                                    contentDescription = tab.title
+                                    tab.icon,
+                                    contentDescription = "${tab.title} tab"
                                 )
                             },
                             colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = MaterialTheme.colorScheme.primary,
-                                selectedTextColor = MaterialTheme.colorScheme.primary
+                                selectedIconColor = Color.Blue,
+                                selectedTextColor = Color.Blue
                             )
                         )
                     }
@@ -55,7 +61,9 @@ fun MainScreen() {
             }
         ) { paddingValues ->
             Box(
-                modifier = Modifier.padding(paddingValues)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
             ) {
                 CurrentScreen()
             }

@@ -1,7 +1,7 @@
 [versions]
 # Android & Kotlin
 agp = "8.13.2"
-kotlin = "2.1.0"
+kotlin = "2.0.0"
 coreKtx = "1.17.0"
 
 # Testing
@@ -18,8 +18,8 @@ composeBom = "2024.09.00"
 coroutines = "1.6.4"
 
 # Dependency Injection
-hilt = "2.52"
-kotlin-ksp = "2.1.0-1.0.29"
+hilt = "2.46"
+kotlin-ksp = "2.0.0-1.0.22"
 hiltNavigationCompose = "1.0.0"
 
 # Firebase
@@ -94,11 +94,14 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 # Navigation
 # -------------------------
 # Core Navigator
+voyager-core = { group = "cafe.adriel.voyager", name = "voyager-core", version.ref = "voyager" }
 voyager-navigator = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager" }
 # Bottom Tabs
 voyager-tab-navigator = { group = "cafe.adriel.voyager", name = "voyager-tab-navigator", version.ref = "voyager" }
 # Animations
 voyager-transitions = { group = "cafe.adriel.voyager", name = "voyager-transitions", version.ref = "voyager" }
+# Hilt integration for Voyager
+voyager-hilt = { group = "cafe.adriel.voyager", name = "voyager-hilt", version.ref = "voyager" }
 
 # -------------------------
 # Media3

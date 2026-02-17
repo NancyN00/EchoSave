@@ -111,6 +111,8 @@ dependencies {
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.tab.navigator)
     implementation(libs.voyager.transitions)
+    implementation(libs.voyager.hilt)
+    implementation(libs.voyager.core)
 
     // Multimedia / Images
     implementation(libs.androidx.media3.exoplayer)

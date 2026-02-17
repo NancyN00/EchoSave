@@ -1,7 +1,7 @@
 package com.nancy.echosave.presentation.screens.audio
 
-import android.R.attr.contentDescription
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
@@ -10,16 +10,23 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.core.screen.ScreenKey
+import cafe.adriel.voyager.hilt.getViewModel
 import com.nancy.echosave.ElevenLabsConfig
+import timber.log.Timber
 
-object AudioScreen : Screen {
+
+class AudioScreen : Screen {
+
+    override val key: ScreenKey = "AudioScreen"
+
     @Composable
     override fun Content() {
-        val viewModel: AudioViewModel = hiltViewModel()
+
+        val viewModel = getViewModel<AudioViewModel>()
+
         val state by viewModel.uiState.collectAsState()
         val context = LocalContext.current
         val player = remember { AudioPlayer(context) }
@@ -27,20 +34,20 @@ object AudioScreen : Screen {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // 1️⃣ Text input
             OutlinedTextField(
                 value = state.text,
                 onValueChange = viewModel::onTextChange,
                 label = { Text("Enter text") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                 //   .semantics { contentDescription = "Text input for audio generation" }
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(Modifier.height(16.dp))
 
+            // 2️⃣ Generate button
             Button(
                 onClick = {
                     viewModel.generateAudio(
@@ -49,8 +56,7 @@ object AudioScreen : Screen {
                     )
                 },
                 enabled = state.text.isNotBlank() && !state.isGenerating,
-                modifier = Modifier
-                    .widthIn(max = 280.dp),
+                modifier = Modifier.widthIn(max = 280.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 )
@@ -66,22 +72,36 @@ object AudioScreen : Screen {
                 } else {
                     Icon(Icons.Default.PlayArrow, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text("Generate Audio")
+                    Text(if (state.audioFile != null) "Regenerate Audio" else "Generate Audio")
                 }
             }
 
             Spacer(Modifier.height(16.dp))
 
-            state.audioFile?.let {
+            // 3️⃣ Show audio ready text
+            state.audioFile?.let { file ->
+                Text(
+                    text = "Audio ready: ${file.name}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+
+                Spacer(Modifier.height(8.dp))
+
+                // 4️⃣ Play button
                 IconButton(
-                    onClick = { player.play(it) },
-                  //  modifier = Modifier.semantics { contentDescription = "Play generated audio" }
+                    onClick = { player.play(file) },
+                    modifier = Modifier.size(64.dp)
                 ) {
-                    Icon(Icons.Default.PlayArrow, contentDescription = null)
+                    Icon(
+                        Icons.Default.PlayArrow,
+                        contentDescription = "Play generated audio",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
                 }
             }
         }
 
+        // 5️⃣ Toast for saved audio
         if (state.showSavedToast) {
             LaunchedEffect(state.showSavedToast) {
                 Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()

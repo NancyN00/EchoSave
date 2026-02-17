@@ -11,8 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.core.screen.ScreenKey
 
-object SavedScreen : Screen {
+class SavedScreen : Screen {
+
+    override val key: ScreenKey = "SavedScreen"
     @Composable
   override  fun Content() {
         Column(

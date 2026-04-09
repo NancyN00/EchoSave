@@ -10,7 +10,10 @@ import retrofit2.http.Path
 
 interface ElevenLabsApi {
     @POST("v1/text-to-speech/{voiceId}")
-    @Headers("Content-Type: application/json")
+    @Headers(
+        "Content-Type: application/json",
+        "Accept: audio/mpeg"
+    )
     suspend fun textToSpeech(
         @Path("voiceId") voiceId: String,
         @Body body: TextToSpeechRequest,

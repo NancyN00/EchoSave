@@ -27,6 +27,6 @@ EchoSave is a Jetpack Compose Android app that lets users generate lifelike audi
 📱 Screenshots
 
 <p align="center">
-<img width="300" alt="saved_screen" src="https://github.com/user-attachments/assets/d2ca9056-dde0-46e3-a763-f2a9819e6b89" />
-<img width="300" alt="audiotts_screen" src="https://github.com/user-attachments/assets/7827af55-0dec-4da5-94f3-ab1650f1149e" />
+  <img width="300" alt="audiotts_screen" src="https://github.com/user-attachments/assets/7827af55-0dec-4da5-94f3-ab1650f1149e" />
+ <img width="300" alt="saved_screen" src="https://github.com/user-attachments/assets/d2ca9056-dde0-46e3-a763-f2a9819e6b89" />
 </p>

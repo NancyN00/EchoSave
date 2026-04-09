@@ -24,8 +24,10 @@ EchoSave is a Jetpack Compose Android app that lets users generate lifelike audi
 * DI: Hilt for dependency injection (ViewModels, Repositories, Firestore, Storage, Retrofit)
 * Navigation: Voyager for Compose navigation and bottom tabs
 
-## Screenshots
+📱 Screenshots
 
-<img width="720" height="1520" alt="audiotts_screen" src="https://github.com/user-attachments/assets/c462d11e-8c2c-46b3-ae25-50f551ce47e3" />
-<img width="720" height="1520" alt="saved_screen" src="https://github.com/user-attachments/assets/5042f0e0-7642-41cb-bf1f-a8eed145b743" />
+<p align="center">
+  <img width="300" src="https://github.com/user-attachments/assets/c462d11e-8c2c-46b3-ae25-50f551ce47e3" />
+  <img width="300" src="https://github.com/user-attachments/assets/5042f0e0-7642-41bf-a8eed145b743" />
+</p>
 

@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.gradle.internal.impldep.org.jsoup.nodes.Entities
 import java.util.Properties
 import java.io.FileInputStream
 
@@ -45,8 +46,6 @@ android {
             ""
         }
 
-        println("ELEVEN LABS KEY = '$elevenLabsKey'")
-
         buildConfigField("String", "ELEVEN_LABS_API_KEY", "\"$elevenLabsKey\"")
     }
 
@@ -92,6 +91,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    implementation(libs.androidx.compose.material.icons.extended)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)

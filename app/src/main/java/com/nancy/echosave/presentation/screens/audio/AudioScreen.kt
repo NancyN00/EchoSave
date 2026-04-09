@@ -34,7 +34,7 @@ class AudioScreen : Tab {
         @Composable
         get() {
             val title = "Audio"
-            val icon = rememberVectorPainter(Icons.Default.Home)
+            val icon = rememberVectorPainter(Icons.Default.Audiotrack)
             return remember { TabOptions(index = 0u, title = title, icon = icon) }
         }
 
@@ -73,14 +73,6 @@ class AudioScreen : Tab {
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
-                    )
-                },
-                navigationIcon = {
-                    Text(
-                        text = "Audio",
-                        color = Color.White,
-                        modifier = Modifier.padding(start = 16.dp),
-                        fontSize = 16.sp
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = BrandBlue)

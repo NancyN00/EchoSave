@@ -3,7 +3,6 @@ package com.nancy.echosave.data.repository
 import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.nancy.echosave.ElevenLabsConfig
 import com.nancy.echosave.data.ElevenLabsApi
 import com.nancy.echosave.data.TextToSpeechRequest
 import com.nancy.echosave.domain.AudioRepository
@@ -27,59 +26,60 @@ class AudioRepositoryImpl @Inject constructor(
         voiceId: String,
         modelId: String
     ): File {
+
         val response = api.textToSpeech(
             voiceId = voiceId,
-            body = TextToSpeechRequest(text = text, model_id = modelId),
-            apiKey = ElevenLabsConfig.API_KEY
+            body = TextToSpeechRequest(
+                text = text,
+                model_id = modelId
+            )
         )
 
         if (!response.isSuccessful) {
-            throw Exception("ElevenLabs API Error: ${response.code()}")
+            throw Exception("ElevenLabs API Error: ${response.code()} ${response.errorBody()?.string()}")
         }
 
-        val bytes = response.body()?.bytes() ?: throw Exception("Received empty audio data")
+        val bytes = response.body()?.bytes()
+            ?: throw Exception("Received empty audio data")
 
-        // Save the audio file to the local cache folder
         val file = File(context.cacheDir, "audio_${System.currentTimeMillis()}.mp3")
         file.writeBytes(bytes)
 
-        // Automatically save the details to Firestore so they appear in Saved screen
         saveMetadata(text, voiceId, file.absolutePath)
 
         return file
     }
 
     override fun getSavedAudios(): Flow<List<AudioMetadata>> = callbackFlow {
-        // real-time listener for the Firestore "saved_audios" collection
+
         val listenerRegistration = firestore.collection("saved_audios")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, error ->
+
                 if (error != null) {
                     close(error)
                     return@addSnapshotListener
                 }
 
-                // Convert Firestore documents into our AudioMetadata objects
                 val items = snapshot?.toObjects(AudioMetadata::class.java) ?: emptyList()
                 trySend(items)
             }
 
-        // Keep the listener alive until the screen is closed
         awaitClose {
             listenerRegistration.remove()
         }
     }
 
     private suspend fun saveMetadata(text: String, voiceId: String, path: String) {
+
         val metadata = AudioMetadata(
             id = System.currentTimeMillis().toString(),
             text = text,
             voiceId = voiceId,
             filePath = path,
-            timestamp = System.currentTimeMillis() // Track when it was created
+            timestamp = System.currentTimeMillis()
         )
 
-        // Push the metadata to Firestore "saved_audios" collection
         firestore.collection("saved_audios")
             .document(metadata.id)
             .set(metadata)

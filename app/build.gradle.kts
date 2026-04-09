@@ -35,10 +35,18 @@ android {
         // Load local.properties
         val localProperties = Properties()
         val localPropertiesFile = rootProject.file("local.properties")
-        if (localPropertiesFile.exists()) {
-            localProperties.load(FileInputStream(localPropertiesFile))
+
+        val elevenLabsKey = if (localPropertiesFile.exists()) {
+            FileInputStream(localPropertiesFile).use { input ->
+                localProperties.load(input)
+            }
+            localProperties.getProperty("eleven_labs_api_key", "").trim()
+        } else {
+            ""
         }
-        val elevenLabsKey = (localProperties.getProperty("eleven_labs_api_key") ?: "").trim()
+
+        println("ELEVEN LABS KEY = '$elevenLabsKey'")
+
         buildConfigField("String", "ELEVEN_LABS_API_KEY", "\"$elevenLabsKey\"")
     }
 

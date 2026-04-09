@@ -64,88 +64,181 @@ class AudioScreen : Tab {
         }
 
         Column(modifier = Modifier.fillMaxSize().background(Color(0xFFF3F4F6))) {
+
             TopAppBar(
-                title = { Text(text = "EchoSave", modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, color = Color.White) },
-                navigationIcon = { Text(text = "Audio", color = Color.White, modifier = Modifier.padding(start = 16.dp), fontSize = 16.sp) },
+                title = {
+                    Text(
+                        text = "EchoSave",
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                },
+                navigationIcon = {
+                    Text(
+                        text = "Audio",
+                        color = Color.White,
+                        modifier = Modifier.padding(start = 16.dp),
+                        fontSize = 16.sp
+                    )
+                },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = BrandBlue)
             )
 
-            Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState).padding(horizontal = 24.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
+                    .padding(horizontal = 24.dp)
+            ) {
+
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(8.dp), colors = CardDefaults.cardColors(containerColor = Color.White)) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White)
+                ) {
                     TextField(
                         value = state.text,
                         onValueChange = viewModel::onTextChange,
                         placeholder = { Text("Enter text to convert...") },
                         modifier = Modifier.fillMaxWidth().height(120.dp),
-                        colors = TextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White, unfocusedIndicatorColor = Color.Transparent, focusedIndicatorColor = Color.Transparent)
+                        colors = TextFieldDefaults.colors(
+                            unfocusedContainerColor = Color.White,
+                            focusedContainerColor = Color.White,
+                            unfocusedIndicatorColor = Color.Transparent,
+                            focusedIndicatorColor = Color.Transparent
+                        )
                     )
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
+
                 Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     HorizontalDivider(modifier = Modifier.weight(1f), color = Color.LightGray)
-                    Text(text = "Curated AI Voices", modifier = Modifier.padding(horizontal = 12.dp), color = Color.DarkGray, fontSize = 14.sp)
+                    Text(
+                        text = "Curated AI Voices",
+                        modifier = Modifier.padding(horizontal = 12.dp),
+                        color = Color.DarkGray,
+                        fontSize = 14.sp
+                    )
                     HorizontalDivider(modifier = Modifier.weight(1f), color = Color.LightGray)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-                Row(modifier = Modifier.align(Alignment.CenterHorizontally).clip(RoundedCornerShape(24.dp)).background(Color(0xFFE5E7EB))) {
+
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .clip(RoundedCornerShape(24.dp))
+                        .background(Color(0xFFE5E7EB))
+                ) {
                     VoiceTab("Voice A", selectedVoice == "Voice A") { selectedVoice = "Voice A" }
                     VoiceTab("Voice B", selectedVoice == "Voice B") { selectedVoice = "Voice B" }
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // IDs: Rachel and Sarah/Bella IDs
                 Button(
                     onClick = {
-                        val selectedVoiceId = if (selectedVoice == "Voice A") "21m00Tcm4TlvDq8ikWAM" else "EXAVITQu4vr4xnSDxMaL"
-                        viewModel.generateAudio(selectedVoiceId, ElevenLabsConfig.MODEL_MULTILINGUAL)
+                        val selectedVoiceId =
+                            if (selectedVoice == "Voice A")
+                                "21m00Tcm4TlvDq8ikWAM"
+                            else
+                                "pNInz6obpgDQGcFmaJgB"
+
+                        viewModel.generateAudio(
+                            selectedVoiceId,
+                            ElevenLabsConfig.MODEL_MULTILINGUAL
+                        )
                     },
                     enabled = state.text.isNotBlank() && !state.isGenerating,
                     colors = ButtonDefaults.buttonColors(containerColor = BrandBlue),
                     modifier = Modifier.fillMaxWidth().height(56.dp)
                 ) {
-                    if (state.isGenerating) CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color.White)
-                    else Text(text = "Generate Audio", fontWeight = FontWeight.Bold)
+                    if (state.isGenerating) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(24.dp),
+                            color = Color.White
+                        )
+                    } else {
+                        Text(text = "Generate Audio", fontWeight = FontWeight.Bold)
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(8.dp), colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F0F0))) {
-                    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F0F0))
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         FilledIconButton(
-                            onClick = { if (state.audioFile != null) { if (state.isPlaying) player.player.pause() else player.play(
-                                state.audioFile!!
-                            ) } },
+                            onClick = {
+                                if (state.audioFile != null) {
+                                    if (state.isPlaying) player.player.pause()
+                                    else player.play(state.audioFile!!)
+                                }
+                            },
                             enabled = state.audioFile != null,
                             colors = IconButtonDefaults.filledIconButtonColors(containerColor = BrandBlue),
                             modifier = Modifier.size(48.dp)
                         ) {
-                            Icon(imageVector = if (state.isPlaying) Icons.Default.Close else Icons.Default.PlayArrow, contentDescription = null, tint = Color.White)
+                            Icon(
+                                imageVector = if (state.isPlaying) Icons.Default.Close else Icons.Default.PlayArrow,
+                                contentDescription = null,
+                                tint = Color.White
+                            )
                         }
 
                         Spacer(modifier = Modifier.width(12.dp))
+
                         val current = formatTime(state.currentPosition)
                         val total = formatTime(state.totalDuration)
-                        Slider(value = if (state.totalDuration > 0) state.currentPosition.toFloat() / state.totalDuration.toFloat() else 0f, onValueChange = {}, modifier = Modifier.weight(1f), enabled = state.audioFile != null)
+
+                        Slider(
+                            value = if (state.totalDuration > 0)
+                                state.currentPosition.toFloat() / state.totalDuration.toFloat()
+                            else 0f,
+                            onValueChange = {},
+                            modifier = Modifier.weight(1f),
+                            enabled = state.audioFile != null
+                        )
+
                         Text(text = "$current / $total", color = Color.DarkGray, fontSize = 14.sp)
                     }
                 }
 
                 AnimatedVisibility(visible = state.showSavedToast) {
-                    Row(modifier = Modifier.fillMaxWidth().padding(top = 16.dp), horizontalArrangement = Arrangement.Center) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
                         Text(text = "Saved ", color = BrandBlue, fontWeight = FontWeight.SemiBold)
-                        Icon(imageVector = Icons.Default.Check, contentDescription = null, tint = BrandBlue, modifier = Modifier.size(20.dp))
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = null,
+                            tint = BrandBlue,
+                            modifier = Modifier.size(20.dp)
+                        )
                     }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-                OutlinedButton(onClick = {}, modifier = Modifier.fillMaxWidth().height(56.dp)) {
+
+                OutlinedButton(
+                    onClick = {},
+                    modifier = Modifier.fillMaxWidth().height(56.dp)
+                ) {
                     Text(text = "Upload Audio", color = Color.DarkGray, fontWeight = FontWeight.Bold)
                 }
+
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }
@@ -160,7 +253,17 @@ fun formatTime(milliseconds: Long): String {
 
 @Composable
 fun VoiceTab(name: String, isSelected: Boolean, onClick: () -> Unit) {
-    Box(modifier = Modifier.clip(RoundedCornerShape(24.dp)).background(if (isSelected) BrandBlue else Color.Transparent).clickable { onClick() }.padding(horizontal = 32.dp, vertical = 12.dp)) {
-        Text(text = name, color = if (isSelected) Color.White else Color.DarkGray, fontWeight = FontWeight.SemiBold)
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(24.dp))
+            .background(if (isSelected) BrandBlue else Color.Transparent)
+            .clickable { onClick() }
+            .padding(horizontal = 32.dp, vertical = 12.dp)
+    ) {
+        Text(
+            text = name,
+            color = if (isSelected) Color.White else Color.DarkGray,
+            fontWeight = FontWeight.SemiBold
+        )
     }
 }

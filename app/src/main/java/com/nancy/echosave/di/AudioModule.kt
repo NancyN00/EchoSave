@@ -1,9 +1,11 @@
 package com.nancy.echosave.di
 
+import com.google.firebase.firestore.FirebaseFirestore
 import com.nancy.echosave.data.repository.AudioRepositoryImpl
 import com.nancy.echosave.domain.AudioRepository
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
@@ -17,4 +19,11 @@ abstract class AudioModule {
     abstract fun bindAudioRepository(
         impl: AudioRepositoryImpl
     ): AudioRepository
+
+    companion object {
+        @Provides
+        @Singleton
+        fun provideFirestore(): FirebaseFirestore =
+            FirebaseFirestore.getInstance()
+    }
 }

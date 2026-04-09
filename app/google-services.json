@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "859526206146",
+    "firebase_url": "https://recycfb-default-rtdb.firebaseio.com",
+    "project_id": "recycfb",
+    "storage_bucket": "recycfb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859526206146:android:1a182c8e03e7e18474e15b",
+        "android_client_info": {
+          "package_name": "com.example.recycfb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkP6LoJhw3Pb7BZUBjl9V6ztKMVLCWVkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859526206146:android:507b61ac475138a174e15b",
+        "android_client_info": {
+          "package_name": "com.nancy.echosave"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkP6LoJhw3Pb7BZUBjl9V6ztKMVLCWVkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

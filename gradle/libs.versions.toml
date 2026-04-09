@@ -1,48 +1,49 @@
 [versions]
 # Android & Kotlin
-agp = "8.13.2"
-kotlin = "2.0.0"
-coreKtx = "1.17.0"
+agp = "8.7.2"
+kotlin = "2.0.21"
+coreKtx = "1.15.0"
 
 # Testing
 junit = "4.13.2"
-junitVersion = "1.3.0"
-espressoCore = "3.7.0"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
 
 # Lifecycle & Compose
-lifecycleRuntimeKtx = "2.10.0"
-activityCompose = "1.12.2"
-composeBom = "2024.09.00"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2024.10.01"
 
 # Coroutines
-coroutines = "1.6.4"
+coroutines = "1.9.0"
 
 # Dependency Injection
-hilt = "2.46"
-kotlin-ksp = "2.0.0-1.0.22"
-hiltNavigationCompose = "1.0.0"
+hilt = "2.50"
+kotlin-ksp = "2.0.21-1.0.28"
+hiltNavigationCompose = "1.2.0"
 
 # Firebase
-firebaseBom = "34.7.0"
+firebaseBom = "33.5.1"
 
 # Navigation
 voyager = "1.0.0"
 
 # Networking
-retrofit = "2.9.0"
-moshi = "1.15.2"
-okhttp = "4.11.0"
-gson = "2.10.1"
+retrofit = "2.11.0"
+moshi = "1.15.1"
+okhttp = "4.12.0"
+gson = "2.11.0"
 
 # Multimedia
-coil = "3.3.0"
-media3 = "1.9.0"
+coil = "3.0.0-rc01"
+media3 = "1.4.1"
 
 # Logging
 timber = "5.0.1"
 
 # Secrets
 secretsPlugin = "2.0.1"
+googleServ = "4.4.4"
 
 [libraries]
 
@@ -90,6 +91,7 @@ dagger-hilt-compiler = { group= "com.google.dagger", name = "hilt-android-compil
 hiltNavigationCompose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
 # -------------------------
 # Navigation
 # -------------------------
@@ -142,3 +144,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
 google-secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServ" }

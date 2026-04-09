@@ -1,6 +1,5 @@
 package com.nancy.echosave.data
 
-import com.nancy.echosave.ElevenLabsConfig
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -15,7 +14,7 @@ interface ElevenLabsApi {
     suspend fun textToSpeech(
         @Path("voiceId") voiceId: String,
         @Body body: TextToSpeechRequest,
-        @Header("xi-api-key") apiKey: String = ElevenLabsConfig.API_KEY
+        @Header("xi-api-key") apiKey: String
     ): Response<ResponseBody>
 }
 

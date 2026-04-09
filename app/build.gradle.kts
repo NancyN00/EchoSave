@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.google.secrets)
+    alias(libs.plugins.google.services)
 }
 
 kotlin {
@@ -20,12 +21,12 @@ kotlin {
 
 android {
     namespace = "com.nancy.echosave"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.nancy.echosave"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -37,7 +38,7 @@ android {
         if (localPropertiesFile.exists()) {
             localProperties.load(FileInputStream(localPropertiesFile))
         }
-        val elevenLabsKey = localProperties.getProperty("eleven_labs_api_key") ?: ""
+        val elevenLabsKey = (localProperties.getProperty("eleven_labs_api_key") ?: "").trim()
         buildConfigField("String", "ELEVEN_LABS_API_KEY", "\"$elevenLabsKey\"")
     }
 
